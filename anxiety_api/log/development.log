@@ -1,0 +1,259 @@
+  [1m[35m (353.9ms)[0m  [1m[35mCREATE DATABASE "anxiety_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (80.1ms)[0m  [1m[35mCREATE DATABASE "anxiety_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (53.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(692981804443111785)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20200804191759)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "location" character varying, "username" character varying, "passcode" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (2.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804191759"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStories (20200804192315)
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "stories" ("id" bigserial primary key, "title" character varying, "description" character varying, "author" character varying, "likes" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804192315"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddForeignKeyToStories (20200804192545)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.1ms)[0m  [1m[35mALTER TABLE "stories" ADD "user_id" integer[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804192545"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (2.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-08-04 19:26:52.686129"], ["updated_at", "2020-08-04 19:26:52.686129"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(692981804443111785)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (2.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "location", "username", "passcode", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Federico"], ["location", "Chicago"], ["username", "salinasfez"], ["passcode", 1234], ["created_at", "2020-08-04 19:37:18.002492"], ["updated_at", "2020-08-04 19:37:18.002492"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "location", "username", "passcode", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["location", "Los Angeles"], ["username", "Big Bobs"], ["passcode", 7853], ["created_at", "2020-08-04 19:37:18.011401"], ["updated_at", "2020-08-04 19:37:18.011401"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStory Create (1.0ms)[0m  [1m[32mINSERT INTO "stories" ("title", "description", "author", "likes", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "El trabajo sucio."], ["description", "La historia de la esclavitud"], ["author", "Don Quijote"], ["likes", 2], ["created_at", "2020-08-04 19:37:18.069700"], ["updated_at", "2020-08-04 19:37:18.069700"], ["user_id", 1]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 0], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+Started GET "/" for ::1 at 2020-08-04 14:37:58 -0500
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/federicosalinas/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/railties-6.0.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/federicosalinas/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/railties-6.0.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 16.1ms | Allocations: 409)
+Completed 200 OK in 37ms (Views: 25.0ms | ActiveRecord: 0.0ms | Allocations: 2254)
+
+
+Started GET "/stories" for ::1 at 2020-08-04 14:38:05 -0500
+Processing by StoriesController#index as HTML
+  [1m[36mStory Load (0.8ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  ↳ app/controllers/stories_controller.rb:8:in `index'
+Completed 200 OK in 54ms (Views: 29.7ms | ActiveRecord: 11.8ms | Allocations: 6600)
+
+
+Started GET "/users" for ::1 at 2020-08-04 14:38:29 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 45ms (Views: 26.0ms | ActiveRecord: 11.4ms | Allocations: 5787)
+
+
+Started GET "/users" for ::1 at 2020-08-04 14:43:19 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.7ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 92ms (Views: 0.2ms | ActiveRecord: 18.9ms | Allocations: 16497)
+
+
+Started GET "/stories" for ::1 at 2020-08-04 14:48:51 -0500
+Processing by StoriesController#index as HTML
+  [1m[36mStory Load (1.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  ↳ app/controllers/stories_controller.rb:8:in `index'
+Completed 200 OK in 12ms (Views: 9.0ms | ActiveRecord: 1.4ms | Allocations: 1013)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(692981804443111785)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateGroups (20200804205646)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (25.9ms)[0m  [1m[35mCREATE TABLE "groups" ("id" bigserial primary key, "guest_name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804205646"]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddForeignKeyToUsers (20200804205829)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "users" ADD "group_id" integer[0m
+  [1m[36mprimary::SchemaMigration Create (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804205829"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(692981804443111785)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(692981804443111785)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddFieldToGroups (20200804210955)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "groups" ADD "name" character varying[0m
+  [1m[36mprimary::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804210955"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(692981804443111785)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGroup Load (1.1ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGroup Create (1.8ms)[0m  [1m[32mINSERT INTO "groups" ("guest_name", "created_at", "updated_at", "name") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["guest_name", "Alyssa"], ["created_at", "2020-08-04 21:15:14.502243"], ["updated_at", "2020-08-04 21:15:14.502243"], ["name", "Our Anxiety Chicago"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/stories" for ::1 at 2020-08-04 16:17:09 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by StoriesController#index as HTML
+  [1m[36mStory Load (1.7ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  ↳ app/controllers/stories_controller.rb:8:in `index'
+Completed 200 OK in 37ms (Views: 23.7ms | ActiveRecord: 8.4ms | Allocations: 6593)
+
+
+Started GET "/groups" for ::1 at 2020-08-04 16:17:18 -0500
+Processing by GroupsController#index as HTML
+  [1m[36mGroup Load (1.7ms)[0m  [1m[34mSELECT "groups".* FROM "groups"[0m
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+Completed 200 OK in 76ms (Views: 0.2ms | ActiveRecord: 9.9ms | Allocations: 8465)
+
+
+Started GET "/users" for ::1 at 2020-08-04 16:17:33 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (1.1ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.9ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 47ms (Views: 0.1ms | ActiveRecord: 6.5ms | Allocations: 7286)
+
+
+Started GET "/groups" for ::1 at 2020-08-04 16:19:18 -0500
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by GroupsController#index as HTML
+  [1m[36mGroup Load (0.5ms)[0m  [1m[34mSELECT "groups".* FROM "groups"[0m
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+Completed 200 OK in 48ms (Views: 0.2ms | ActiveRecord: 10.2ms | Allocations: 9333)
+
+
+Started GET "/users" for ::1 at 2020-08-04 16:20:12 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.8ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 75ms (Views: 0.1ms | ActiveRecord: 10.5ms | Allocations: 11995)
+
+
+Started GET "/groups" for ::1 at 2020-08-04 16:20:22 -0500
+Processing by GroupsController#index as HTML
+  [1m[36mGroup Load (0.9ms)[0m  [1m[34mSELECT "groups".* FROM "groups"[0m
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 1.3ms | Allocations: 1656)
+
+
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGroup Load (1.0ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "location", "username", "passcode", "created_at", "updated_at", "group_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Simon"], ["location", "Chicago"], ["username", "simonsays"], ["passcode", 4322], ["created_at", "2020-08-04 21:21:05.134589"], ["updated_at", "2020-08-04 21:21:05.134589"], ["group_id", 1]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/groups" for ::1 at 2020-08-04 16:21:16 -0500
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by GroupsController#index as HTML
+  [1m[36mGroup Load (0.7ms)[0m  [1m[34mSELECT "groups".* FROM "groups"[0m
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+Completed 200 OK in 83ms (Views: 0.2ms | ActiveRecord: 20.6ms | Allocations: 13675)
+
+
+Started GET "/groups" for ::1 at 2020-08-04 16:28:14 -0500
+Processing by GroupsController#index as HTML
+  [1m[36mGroup Load (0.7ms)[0m  [1m[34mSELECT "groups".* FROM "groups"[0m
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/groups_controller.rb:8:in `index'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 1.8ms | Allocations: 1912)
+
+
+Started GET "/users" for ::1 at 2020-08-04 17:45:24 -0500
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 94ms (Views: 0.2ms | ActiveRecord: 20.6ms | Allocations: 9033)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(692981804443111785)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddFieldToStories (20200804224753)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "stories" ADD "body" character varying[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200804224753"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(692981804443111785)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/users" for ::1 at 2020-08-04 17:49:37 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 127ms (Views: 0.2ms | ActiveRecord: 26.1ms | Allocations: 17658)
+
+
+Started GET "/stories" for ::1 at 2020-08-04 17:49:48 -0500
+Processing by StoriesController#index as HTML
+  [1m[36mStory Load (0.5ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  ↳ app/controllers/stories_controller.rb:8:in `index'
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.5ms | Allocations: 1023)
+
+
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mStory Create (1.2ms)[0m  [1m[32mINSERT INTO "stories" ("title", "description", "author", "likes", "created_at", "updated_at", "user_id", "body") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Digital Ocean"], ["description", "Set up"], ["author", "Colin"], ["likes", 1], ["created_at", "2020-08-04 22:52:40.835901"], ["updated_at", "2020-08-04 22:52:40.835901"], ["user_id", 2], ["body", "In Part 1, we will cover the initial setup for your virtual server (droplet) using DigitalOcean. In Part 2, we will cover cloning your project from git and getting it up and running."]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/users" for ::1 at 2020-08-04 17:52:59 -0500
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.6ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  [1m[36mStory Load (0.4ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+Completed 200 OK in 108ms (Views: 0.2ms | ActiveRecord: 12.8ms | Allocations: 17811)
+
+
